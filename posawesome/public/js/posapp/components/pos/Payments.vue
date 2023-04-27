@@ -147,6 +147,22 @@
               </v-btn>
             </v-col>
           </v-row>
+
+          <v-row
+            class="pyments px-1 py-0"
+            :key="pazor_pay"
+          >
+            <v-col cols="6" offset="6">
+              <v-btn
+                block
+                class=""
+                color="primary"
+                dark
+                @click="razor_pay()"
+                >Razor Pay</v-btn
+              >
+            </v-col>
+          </v-row>
         </div>
 
         <v-row
@@ -874,6 +890,22 @@ export default {
         payment.amount = payment.idx == idx ? this.invoice_doc.grand_total : 0;
       });
     },
+
+    razor_pay() {
+      console.log(this.invoice_doc.grand_total)
+      let dialog = new frappe.ui.Dialog({
+        title: "Pay",
+        size: "large",
+      });
+
+      let video = $(
+        `<iframe src="https://razorpay.me/@yogithatechsolutionsopcprivat" name= "tabsa" width="100%" height="800px" frameborder="0" allowtransparency="true"></iframe>`
+      );
+      video.appendTo(dialog.body);
+
+      dialog.show();
+    },
+
     set_rest_amount(idx) {
       this.invoice_doc.payments.forEach((payment) => {
         if (
